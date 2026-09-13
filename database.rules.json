@@ -1,0 +1,10 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": { ".read": false, ".write": false },
+    "tasks": { ".read": false, ".write": false },
+    "transactions": { ".read": false, ".write": false },
+    "taskClaims": { ".read": false, ".write": false }
+  }
+}

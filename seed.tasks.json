@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "welcome-task": {
+      "title": "Welcome Task",
+      "reward": 1,
+      "active": true,
+      "description": "Admin can replace this task."
+    }
+  }
+}
