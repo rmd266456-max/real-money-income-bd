@@ -1,0 +1,80 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real Money Income BD — Admin Control</title>
+<style>
+:root{--nav:#061b31;--blue:#087cf0;--green:#16d86b;--red:#e5484d;--bg:#eef4fa;--text:#10243e;--muted:#718096;--line:#dfe8f1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Noto Sans Bengali",sans-serif;color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:800}
+.top{background:linear-gradient(110deg,#03192d,#075d9d);color:#fff;padding:18px}.wrap{max-width:1300px;margin:auto;padding:18px 15px}
+.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;margin-bottom:15px;box-shadow:0 7px 25px #1738580b}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.stat{background:#f5f9fc;padding:15px;border-radius:13px}.stat b{display:block;font-size:23px;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd8e5;border-radius:9px;margin:5px 0 10px}textarea{min-height:90px}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:15px}.tabs button{white-space:nowrap;background:#dfeaf4;color:#123}.tabs button.active{background:var(--nav);color:#fff}
+.hidden{display:none!important}.row{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.muted{color:var(--muted)}.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#edf4fa;font-size:12px;font-weight:800}
+.green{background:var(--green);color:#032d16}.red{background:var(--red);color:#fff}.method{display:grid;grid-template-columns:1fr 1fr 2fr auto;gap:7px;align-items:center;margin-bottom:7px}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.method{grid-template-columns:1fr 1fr}.row{flex-direction:column}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="top"><div class="wrap"><h2>🛡️ Real Money Income BD — Admin Control Center</h2><span id="adminEmail"></span></div></div>
+<div class="wrap">
+<div id="loginBox" class="card"><h3>Admin Login</h3><input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Password"><button onclick="login()">Login</button><p id="msg"></p></div>
+<div id="app" class="hidden">
+<div class="card"><button onclick="logout()">Logout</button> <button onclick="refreshAll()">🔄 Refresh</button></div>
+<div id="stats" class="grid"></div>
+<div class="tabs">
+<button class="active" data-tab="dashboard">Dashboard</button><button data-tab="users">Users</button><button data-tab="tasks">💼 Work / Tasks</button><button data-tab="withdrawals">💸 Withdrawals</button><button data-tab="transactions">Transactions</button><button data-tab="claims">Task Claims</button><button data-tab="referrals">👥 Referrals</button><button data-tab="settings">⚙️ Settings</button>
+</div>
+<div id="dashboard" class="tab"><div class="grid2"><div class="card"><h3>Control Center</h3><p>Users, work, withdrawals, tax, referral commission এবং payment methods এক জায়গা থেকে নিয়ন্ত্রণ করুন।</p></div><div class="card"><h3>Important</h3><p class="muted">Approve করা withdrawal-এর পরে paymentটি আপনাকে/আপনার বৈধ payment provider-কে manually send করতে হবে।</p></div></div></div>
+<div id="users" class="tab hidden"><div class="card"><h3>👤 Users</h3><input id="search" placeholder="Search name, email or UID" oninput="renderUsers()"><div id="userList"></div></div></div>
+<div id="tasks" class="tab hidden"><div class="grid2"><div class="card"><h3>➕ Add Work</h3><input id="tTitle" placeholder="Work title"><textarea id="tDesc" placeholder="Instructions / description"></textarea><input id="tReward" type="number" min="0" step=".01" placeholder="Reward (BDT)"><input id="tCategory" placeholder="Category e.g. Data Entry"><input id="tSlots" type="number" min="0" placeholder="Slots (0 = unlimited)"><button class="green" onclick="addTask()">Add Work</button><p id="taskMsg"></p></div><div class="card"><h3>📋 Manage Work</h3><div id="taskList"></div></div></div></div>
+<div id="withdrawals" class="tab hidden"><div class="card"><h3>💸 Withdrawal Requests</h3><div id="withdrawList"></div></div></div>
+<div id="transactions" class="tab hidden"><div class="card"><h3>💳 All Transactions</h3><div id="txList"></div></div></div>
+<div id="claims" class="tab hidden"><div class="card"><h3>📋 Task Submissions</h3><div id="claimList"></div></div></div>
+<div id="referrals" class="tab hidden"><div class="card"><h3>👥 Referral Performance</h3><p class="muted">প্রতি approved referred task-এ Admin সেট করা percentage + fixed bonus অনুযায়ী commission হবে।</p><div id="refList"></div></div></div>
+<div id="settings" class="tab hidden"><div class="grid2">
+<div class="card"><h3>⚙️ Money & Referral Rules</h3><label>Site name</label><input id="sName"><label>Welcome text</label><input id="sWelcome"><label>Withdrawal tax %</label><input id="sTax" type="number" min="0" step=".01"><label>Referral %</label><input id="sRefPct" type="number" min="0" step=".01"><label>Fixed referral bonus</label><input id="sRefFixed" type="number" min="0" step=".01"><label>Minimum withdrawal</label><input id="sMin" type="number" min="0" step=".01"><label>Maximum withdrawal (0 = unlimited)</label><input id="sMax" type="number" min="0" step=".01"><button class="green" onclick="saveSettings()">💾 Save Rules</button><p id="settingsMsg"></p></div>
+<div class="card"><h3>💳 User Withdrawal Methods</h3><p class="muted">User শুধু এখানে On করা method দেখতে পাবে।</p><div id="methods"></div><button onclick="addMethod()">+ Add Method</button> <button class="green" onclick="saveMethods()">Save Methods</button></div>
+</div></div>
+</div></div>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import{getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAFUC6eAedI7IVTUKT_BYCefjfjRd_PyeE",
+  authDomain: "real-money-income-bd.firebaseapp.com",
+  databaseURL: "https://real-money-income-bd-default-rtdb.firebaseio.com",
+  projectId: "real-money-income-bd",
+  storageBucket: "real-money-income-bd.firebasestorage.app",
+  messagingSenderId: "834454988740",
+  appId: "1:834454988740:web:bada9e5f19d733e121e691"
+};
+const auth=getAuth(initializeApp(firebaseConfig));let token="",users=[],tasks=[],txs=[],settings={};
+const $=id=>document.getElementById(id);
+async function api(url,opt={}){const h={...(opt.headers||{}),Authorization:"Bearer "+token,"Content-Type":"application/json"};const r=await fetch(url,{...opt,headers:h});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Request failed");return d}
+window.login=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){$("msg").textContent=e.message}};
+window.logout=()=>signOut(auth);
+onAuthStateChanged(auth,async u=>{if(!u){$("loginBox").classList.remove("hidden");$("app").classList.add("hidden");return}token=await u.getIdToken();try{await refreshAll();$("loginBox").classList.add("hidden");$("app").classList.remove("hidden");$("adminEmail").textContent=u.email}catch(e){$("msg").textContent=e.message;signOut(auth)}});
+window.refreshAll=async()=>{const s=await api("/api/admin/stats");$("stats").innerHTML=`<div class="stat"><b>${s.users}</b>Users</div><div class="stat"><b>৳${Number(s.totalDeposit).toFixed(2)}</b>Approved Deposits</div><div class="stat"><b>৳${Number(s.totalWithdraw).toFixed(2)}</b>Withdrawals</div><div class="stat"><b>৳${Number(s.pendingWithdraw).toFixed(2)}</b>Pending Withdrawals</div>`;users=await api("/api/admin/users");tasks=await api("/api/tasks");txs=await api("/api/admin/transactions");settings=await api("/api/admin/settings");renderUsers();renderTasks();renderTx();renderWithdrawals();renderClaims(await api("/api/admin/task-claims"));renderReferrals(await api("/api/admin/referrals"));fillSettings()};
+window.renderUsers=()=>{const q=($("search").value||"").toLowerCase();$("userList").innerHTML=users.filter(u=>JSON.stringify(u).toLowerCase().includes(q)).map(u=>`<div class="row"><div><b>${esc(u.name||"User")}</b> ${u.verified?"☑️":""}<br><span class="muted">${esc(u.email||"")}<br>UID: ${esc(u.uid)}<br>Balance: ৳${Number(u.balance||0).toFixed(2)} · ${esc(u.status||"active")}</span></div><div><input id="bal_${u.uid}" type="number" step=".01" placeholder="New balance"><button class="green" onclick="setBalance('${u.uid}')">Set Balance</button> <button onclick="verify('${u.uid}',${!u.verified})">${u.verified?"Remove Tick":"Verify"}</button> <button class="red" onclick="block('${u.uid}','${u.status||"active"}')">${u.status==="blocked"?"Unblock":"Block"}</button></div></div>`).join("")||"<p>No users.</p>"};
+window.setBalance=async uid=>{const v=Number($("bal_"+uid).value);if(!Number.isFinite(v)||v<0)return alert("Invalid balance");await api("/api/admin/users/"+uid,{method:"PATCH",body:JSON.stringify({balance:v})});await refreshAll()};
+window.verify=async(uid,v)=>{await api("/api/admin/users/"+uid,{method:"PATCH",body:JSON.stringify({verified:v})});await refreshAll()};
+window.block=async(uid,s)=>{await api("/api/admin/users/"+uid,{method:"PATCH",body:JSON.stringify({status:s==="blocked"?"active":"blocked"})});await refreshAll()};
+window.addTask=async()=>{try{await api("/api/admin/tasks",{method:"POST",body:JSON.stringify({title:$("tTitle").value,description:$("tDesc").value,reward:Number($("tReward").value),category:$("tCategory").value,slots:Number($("tSlots").value||0)})});["tTitle","tDesc","tReward","tCategory","tSlots"].forEach(x=>$(x).value="");$("taskMsg").textContent="Work added";await refreshAll()}catch(e){$("taskMsg").textContent=e.message}};
+function renderTasks(){$("taskList").innerHTML=tasks.map(t=>`<div class="row"><div><b>${esc(t.title)}</b><br><span class="muted">${esc(t.category||"General")} · ৳${Number(t.reward||0).toFixed(2)} · ${t.active===false?"Inactive":"Active"}</span></div><div><button onclick="toggleTask('${t.id}',${t.active===false})">${t.active===false?"Activate":"Pause"}</button> <button class="red" onclick="deleteTask('${t.id}')">Delete</button></div></div>`).join("")||"<p>No work.</p>"}
+window.toggleTask=async(id,v)=>{await api("/api/admin/tasks/"+id,{method:"PATCH",body:JSON.stringify({active:v})});await refreshAll()};
+window.deleteTask=async id=>{if(confirm("Delete this work?")){await api("/api/admin/tasks/"+id,{method:"DELETE"});await refreshAll()}};
+function renderTx(){$("txList").innerHTML=txs.map(t=>`<div class="row"><div><b>${esc(t.type)}</b> — ৳${Number(t.amount||0).toFixed(2)}<br><span class="muted">User: ${esc(t.uid)} · ${esc(t.method||"")} · ${esc(t.reference||"")} ${t.tax?`· Tax ৳${Number(t.tax).toFixed(2)} · Net ৳${Number(t.netAmount).toFixed(2)}`:""}</span></div><div><span class="pill">${esc(t.status||"pending")}</span> ${t.status==="pending"?`<button class="green" onclick="reviewTx('${t.uid}','${t.id}','approved')">Approve</button> <button class="red" onclick="reviewTx('${t.uid}','${t.id}','rejected')">Reject</button>`:""}</div></div>`).join("")||"<p>No transactions.</p>"}
+function renderWithdrawals(){const a=txs.filter(t=>t.type==="withdraw");$("withdrawList").innerHTML=a.map(t=>`<div class="row"><div><b>💸 ৳${Number(t.amount).toFixed(2)}</b> → Pay ৳${Number(t.netAmount??t.amount).toFixed(2)}<br><span class="muted">User: ${esc(t.uid)}<br>Method: <b>${esc(t.method)}</b><br>Receiving number / ID: <b>${esc(t.reference)}</b><br>Tax: ৳${Number(t.tax||0).toFixed(2)} (${Number(t.taxPercent||0)}%)</span></div><div><span class="pill">${esc(t.status||"pending")}</span> ${t.status==="pending"?`<button class="green" onclick="reviewTx('${t.uid}','${t.id}','approved')">Approve</button> <button class="red" onclick="reviewTx('${t.uid}','${t.id}','rejected')">Reject</button>`:""}</div></div>`).join("")||"<p>No withdrawal requests.</p>"}
+window.reviewTx=async(uid,id,a)=>{try{await api(`/api/admin/transactions/${uid}/${id}`,{method:"PATCH",body:JSON.stringify({action:a})});await refreshAll()}catch(e){alert(e.message)}};
+function renderClaims(a){$("claimList").innerHTML=a.map(c=>`<div class="row"><div><b>${esc(c.title)}</b> — ৳${Number(c.reward||0).toFixed(2)}<br><span class="muted">User: ${esc(c.uid)}</span></div><div><span class="pill">${esc(c.status||"pending")}</span> ${c.status==="pending"?`<button class="green" onclick="reviewClaim('${c.uid}','${c.id}','approved')">Approve</button> <button class="red" onclick="reviewClaim('${c.uid}','${c.id}','rejected')">Reject</button>`:""}</div></div>`).join("")||"<p>No submissions.</p>"}
+window.reviewClaim=async(uid,id,a)=>{try{await api(`/api/admin/task-claims/${uid}/${id}`,{method:"PATCH",body:JSON.stringify({action:a})});await refreshAll()}catch(e){alert(e.message)}};
+function renderReferrals(a){$("refList").innerHTML=a.map(r=>`<div class="row"><div><b>${esc(r.name||"User")}</b><br><span class="muted">Code: ${esc(r.code)} · Referrals: ${r.count} · Earned: ৳${Number(r.earnings||0).toFixed(2)}</span></div><div class="small">${r.children?.length?r.children.map(c=>esc(c.name||c.email||c.uid)).join(", "):"No referrals"}</div></div>`).join("")||"<p>No referral data.</p>"}
+function fillSettings(){$("sName").value=settings.siteName||"";$("sWelcome").value=settings.welcome||"";$("sTax").value=settings.withdrawalTaxPercent||0;$("sRefPct").value=settings.referralPercent||0;$("sRefFixed").value=settings.referralFixed||0;$("sMin").value=settings.minWithdraw||0;$("sMax").value=settings.maxWithdraw||0;renderMethods()}
+function renderMethods(){$("methods").innerHTML=Object.entries(settings.methods||{}).map(([k,v])=>`<div class="method"><input class="mk" value="${esc(k)}"><input class="ml" value="${esc(v.label||k)}"><input class="mh" value="${esc(v.hint||"")}"><label><input class="me" type="checkbox" ${v.enabled!==false?"checked":""}> On</label></div>`).join("")}
+window.addMethod=()=>{const d=document.createElement("div");d.className="method";d.innerHTML='<input class="mk" placeholder="Key"><input class="ml" placeholder="Label"><input class="mh" placeholder="Hint"><label><input class="me" type="checkbox" checked> On</label>';$("methods").appendChild(d)};
+window.saveMethods=async()=>{const m={};document.querySelectorAll("#methods .method").forEach(r=>{const k=r.querySelector(".mk").value.trim();if(k)m[k]={label:r.querySelector(".ml").value.trim()||k,hint:r.querySelector(".mh").value.trim(),enabled:r.querySelector(".me").checked}});await api("/api/admin/settings",{method:"PATCH",body:JSON.stringify({methods:m})});alert("Payment methods saved");await refreshAll()};
+window.saveSettings=async()=>{try{await api("/api/admin/settings",{method:"PATCH",body:JSON.stringify({siteName:$("sName").value,welcome:$("sWelcome").value,withdrawalTaxPercent:Number($("sTax").value||0),referralPercent:Number($("sRefPct").value||0),referralFixed:Number($("sRefFixed").value||0),minWithdraw:Number($("sMin").value||0),maxWithdraw:Number($("sMax").value||0)})});$("settingsMsg").textContent="Rules saved";await refreshAll()}catch(e){$("settingsMsg").textContent=e.message}};
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));b.classList.add("active");$(b.dataset.tab).classList.remove("hidden")});
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+</script></body></html>

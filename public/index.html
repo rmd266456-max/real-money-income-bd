@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real Money Income BD — V2</title>
+<style>
+:root{--nav:#061e36;--blue:#087cf0;--green:#18d75d;--bg:#f4f8fc;--text:#10243e;--muted:#718096;--card:#fff;--line:#e4edf5;--red:#e5484d}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}.top{background:linear-gradient(120deg,#041b32,#075da1);color:#fff;position:sticky;top:0;z-index:20}.nav{max-width:1200px;margin:auto;padding:12px 18px;display:flex;gap:10px;align-items:center}.brand{display:flex;gap:10px;align-items:center;margin-right:auto}.brand .money{font-size:35px}.brand b{font-size:19px}.brand small{display:block;color:#b9ffd2}.nav a{color:#fff;text-decoration:none;padding:9px 11px;border-radius:9px}.nav a:hover{background:#18d75d;color:#052b1a}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer}.green{background:var(--green);color:#032d16}.blue{background:var(--blue);color:#fff}.ghost{background:transparent;color:#fff;border:1px solid #bde1ff}.danger{background:var(--red);color:#fff}.hidden{display:none!important}.hero{background:linear-gradient(120deg,#052747,#09639d);color:#fff}.hero-in{max-width:1200px;margin:auto;padding:62px 18px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}.pill{display:inline-block;background:#087c96;border:1px solid #61eaff;border-radius:30px;padding:8px 13px;font-size:13px}.hero h1{font-size:50px;line-height:1.05;margin:18px 0 10px}.hero h1 span{color:#2be96b}.hero h2{margin:0 0 10px}.hero p{font-size:17px;line-height:1.7;color:#e6f3fb}.hero-art{min-height:340px;border-radius:28px;background:radial-gradient(circle at 50% 35%,#28df73 0 7%,transparent 8%),linear-gradient(145deg,#0a466f,#041d35);display:grid;place-items:center}.phone{width:200px;height:310px;border:8px solid #111;border-radius:34px;background:#effff5;display:grid;place-items:center;text-align:center;color:#07853e;font-size:22px;font-weight:800;transform:rotate(-6deg);box-shadow:0 25px 50px #0007}.wrap{max-width:1200px;margin:auto;padding:25px 18px}.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:-2px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 7px 25px #1738580c}.feature{text-align:center}.feature .ico{font-size:29px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.earn{display:grid;grid-template-columns:1fr 1fr;gap:12px}.earn div{padding:13px;border:1px solid var(--line);border-radius:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#dff9ed;border-radius:16px;margin-top:18px;padding:20px}.stat{text-align:center;border-right:1px solid #a7dfc4}.stat:last-child{border:0}.stat b{display:block;font-size:23px}.muted{color:var(--muted)}footer{background:#031b31;color:#fff;text-align:center;padding:30px}.modal-bg{position:fixed;inset:0;background:#0009;z-index:100;display:none;place-items:center;padding:15px}.modal{background:#fff;max-width:440px;width:100%;border-radius:18px;padding:24px;position:relative}.x{position:absolute;right:13px;top:8px;border:0;background:none;font-size:28px;cursor:pointer}.tabs{display:flex;gap:8px;margin-bottom:12px}.tabs button{flex:1}.field{width:100%;padding:12px;margin:5px 0 10px;border:1px solid #ccd8e5;border-radius:9px}.dash{display:none;background:linear-gradient(180deg,#f4f8fc 0,#eef5fb 100%);padding-top:12px}
+.dash-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.balance-card{background:linear-gradient(135deg,#061e36,#087cf0);color:#fff;border-radius:22px;padding:22px;position:relative;overflow:hidden;box-shadow:0 12px 30px #0b477a22}
+.balance-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-65px;top:-80px;background:#ffffff18}
+.balance-label{font-size:13px;color:#cfe9ff;text-transform:uppercase;letter-spacing:.7px}
+.balance{font-size:38px;font-weight:900;color:#fff;margin:8px 0 2px}
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.quick-action{border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;font-weight:700;box-shadow:0 5px 18px #1738580a}
+.quick-action span{display:block;font-size:24px;margin-bottom:5px}
+.dashboard-title{font-size:20px;margin:0}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 10px}
+.dashboard-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:14px}
+.mini-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.balance-card .muted{color:#cfe9ff}.dashnav{display:flex;gap:8px;overflow:auto;padding-bottom:5px}.dashnav button{white-space:nowrap;border:0;background:#eaf1f8;padding:10px 14px;border-radius:9px;cursor:pointer}.dashnav button.active{background:#087cf0;color:#fff}.panel{display:none}.panel.active{display:block}.item{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);padding:14px;border-radius:12px;margin:9px 0}.status{font-size:12px;padding:5px 8px;border-radius:20px;background:#eef4fa}.notice{padding:12px;background:#fff8dd;border:1px solid #ffe39b;border-radius:10px}.modal small{display:block}.success{color:#087f3e}.error{color:#b52c32}
+@media(max-width:900px){.cards{grid-template-columns:repeat(3,1fr)}.hero-in,.grid2{grid-template-columns:1fr}.nav a{display:none}}@media(max-width:600px){.hero h1{font-size:37px}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:1fr 1fr;gap:15px}.stat{border:0}.earn{grid-template-columns:1fr}.quick-actions{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}.balance{font-size:34px}}
+
+.hero3d{height:300px;display:grid;place-items:center;perspective:900px}
+.cube3d{width:170px;height:170px;position:relative;transform-style:preserve-3d;animation:spin3d 9s linear infinite}
+.cube3d span{position:absolute;inset:0;display:grid;place-items:center;font-size:48px;background:#0a6ba055;border:2px solid #ffffff66;border-radius:18px}
+.cube3d span:nth-child(1){transform:translateZ(85px)}.cube3d span:nth-child(2){transform:rotateY(180deg) translateZ(85px)}
+.cube3d span:nth-child(3){transform:rotateY(90deg) translateZ(85px)}.cube3d span:nth-child(4){transform:rotateY(-90deg) translateZ(85px)}
+.cube3d span:nth-child(5){transform:rotateX(90deg) translateZ(85px)}.cube3d span:nth-child(6){transform:rotateX(-90deg) translateZ(85px)}
+@keyframes spin3d{from{transform:rotateX(-12deg) rotateY(0)}to{transform:rotateX(-12deg) rotateY(360deg)}}
+.market-task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.market-task{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.market-task .reward{font-size:21px;font-weight:900;color:#079645}.market-task .meta{display:flex;justify-content:space-between;gap:8px}
+@media(max-width:800px){.market-task-grid{grid-template-columns:1fr 1fr}}@media(max-width:550px){.market-task-grid{grid-template-columns:1fr}.hero3d{height:220px}}
+</style></head><body>
+<header class="top"><div class="nav"><div class="brand"><div class="money">💰</div><div><b>Real Money <span style="color:#2be96b">Income BD</span></b><small>Earn • Work • Withdraw</small></div></div>
+<a href="#home">Home</a><a href="#earn">Earn</a><a href="#referral">Referral</a><a href="#payment">Payment</a><button class="btn green" id="loginBtn">Login</button><button class="btn blue" id="registerBtn">Register</button><button class="btn ghost hidden" id="logoutBtn">Logout</button></div></header>
+<section class="hero" id="home"><div class="hero-in"><div><span class="pill">🛡️ Secure Account System</span><h1>Real Money <span>Income BD</span></h1><h2>Work From Home & Earn</h2><p>একটি পরিষ্কার earning dashboard—account, tasks, referral এবং wallet activity এক জায়গায় পরিচালনা করুন।</p><button class="btn green" onclick="openAuth('register')">Create Free Account</button> <button class="btn ghost" onclick="document.getElementById('earn').scrollIntoView({behavior:'smooth'})">How It Works</button></div><div class="hero-art"><div class="hero3d"><div class="cube3d"><span>💼</span><span>💰</span><span>📋</span><span>👥</span><span>🚀</span><span>⭐</span></div></div><div class="phone">💵<br>YOUR<br>EARNING<br>DASHBOARD</div></div></div></section>
+<section class="wrap"><div class="cards">
+<div class="card feature"><div class="ico">✅</div><b>Register Free</b><div class="muted">Create account</div></div><div class="card feature"><div class="ico">📋</div><b>Tasks</b><div class="muted">Complete tasks</div></div><div class="card feature"><div class="ico">👥</div><b>Referral</b><div class="muted">Invite friends</div></div><div class="card feature"><div class="ico">💳</div><b>Wallet</b><div class="muted">Deposit/Withdraw</div></div><div class="card feature"><div class="ico">🛡️</div><b>Secure</b><div class="muted">Protected access</div></div><div class="card feature"><div class="ico">🎧</div><b>Support</b><div class="muted">Help & updates</div></div>
+</div></section>
+<section class="wrap" id="earn"><div class="grid2"><div class="card"><h2>🚀 Start Your Earning Journey</h2><p class="muted">রেজিস্ট্রেশন করুন, available task দেখুন এবং অনুমোদিত task reward dashboard-এ পান।</p><button class="btn green" onclick="openAuth('register')">Get Started →</button></div><div class="card"><h2>Earning Features</h2><div class="earn"><div>📝 <b>Daily Tasks</b><br><span class="muted">Task-based rewards</span></div><div>📊 <b>Offers</b><br><span class="muted">Admin-managed offers</span></div><div>👥 <b>Referral</b><br><span class="muted">Referral tracking</span></div><div>🎁 <b>Events</b><br><span class="muted">Bonus campaigns</span></div></div></div></div><div class="stats"><div class="stat"><b>—</b>Registered Users</div><div class="stat"><b>৳ 0</b>Verified Earnings</div><div class="stat"><b>—</b>Withdrawals</div><div class="stat"><b>4.8/5</b>User Rating</div></div></section>
+<section class="wrap" id="referral"><div class="card"><h2>👥 Referral Program</h2><p>আপনার referral code dashboard থেকে কপি করে শেয়ার করুন। কমিশনের নিয়ম Admin Panel থেকে নিয়ন্ত্রিত হবে।</p></div></section>
+<section class="wrap" id="payment"><div class="card"><h2>💳 Deposit & Withdraw</h2><p class="muted">V2-তে request → admin review → approved/rejected flow আছে। বাস্তব payment gateway credentials client-side রাখা হয়নি।</p></div></section>
+
+<section class="wrap dash" id="dashboard">
+<div class="card" style="background:transparent;border:0;box-shadow:none;padding:0">
+  <div class="balance-card">
+    <div class="balance-label">Available Balance</div>
+    <div class="balance">৳ <span id="balance">0.00</span></div>
+    <div class="muted">Welcome, <span id="dashName">User</span> <span id="verified"></span></div>
+    <div class="quick-actions">
+      <button class="quick-action" onclick="switchPanel('tasks')"><span>📋</span>Tasks</button>
+      <button class="quick-action" onclick="openTx('withdraw')"><span>💸</span>Withdraw</button>
+      <button class="quick-action" onclick="openTx('deposit')"><span>💳</span>Deposit</button>
+      <button class="quick-action" onclick="switchPanel('ref')"><span>👥</span>Referral</button>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="mini-card">
+      <div class="section-head"><h2 class="dashboard-title">📊 Account Overview</h2><span class="pill">Secure</span></div>
+      <div id="overviewMsg" class="notice">Your earning dashboard is ready.</div>
+      <div class="stats" style="margin-top:12px">
+        <div class="stat"><b id="overviewBalance">৳ 0</b>Balance</div>
+        <div class="stat"><b>—</b>Tasks</div>
+        <div class="stat"><b>—</b>Withdrawals</div>
+        <div class="stat"><b>—</b>Referral</div>
+      </div>
+    </div>
+    <div class="mini-card">
+      <h3>⚡ Quick Info</h3>
+      <p class="muted">Complete approved tasks, check your wallet, and submit withdrawal requests from one dashboard.</p>
+      <button class="btn blue" onclick="switchPanel('wallet')">Open Wallet →</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="dashnav">
+      <button class="active" data-p="overview">Overview</button>
+      <button data-p="tasks">Tasks</button>
+      <button data-p="wallet">Wallet</button>
+      <button data-p="ref">Referral</button>
+      <button data-p="profile">Profile</button>
+    </div>
+
+    <div id="overview" class="panel active"><p class="muted">Use the buttons above to manage your account.</p></div>
+
+    <div id="tasks" class="panel"><h3>📋 Available Tasks</h3><div id="taskList">Loading...</div></div>
+
+    <div id="wallet" class="panel">
+      <h3>💰 Wallet</h3>
+      <p>Current balance: <b>৳ <span id="walletBalance">0.00</span></b></p>
+      <button class="btn green" onclick="openTx('deposit')">💳 Deposit Request</button>
+      <button class="btn blue" onclick="openTx('withdraw')">💸 Withdraw</button>
+      <p class="muted" style="margin-top:10px">Withdrawals are sent to the payment details you provide and require admin review.</p>
+      <h3>Recent Transactions</h3><div id="txList"></div>
+    </div>
+
+    <div id="ref" class="panel"><h3>👥 Referral</h3><p>Code: <b id="refCode">—</b></p><input class="field" id="refLink" readonly><button class="btn blue" onclick="copyReferral()">Copy Referral Link</button></div>
+
+    <div id="profile" class="panel"><h3>👤 Profile</h3><input class="field" id="profileName" placeholder="Your name"><button class="btn green" onclick="saveProfile()">Save Profile</button><p class="muted">Email: <span id="profileEmail">—</span><br>User ID: <span id="profileUid">—</span></p></div>
+  </div>
+</div>
+</section>
+
+<footer><b>💰 Real Money Income BD</b><br><small>Earn • Work • Withdraw<br>© 2026</small></footer>
+
+<div class="modal-bg" id="authModal"><div class="modal"><button class="x" onclick="closeModal('authModal')">×</button><div class="tabs"><button class="btn blue" onclick="authMode('login')">Login</button><button class="btn green" onclick="authMode('register')">Register</button></div>
+<div id="loginForm"><h2>Welcome back</h2><input class="field" id="loginEmail" type="email" placeholder="Email"><input class="field" id="loginPassword" type="password" placeholder="Password"><button class="btn blue" style="width:100%" onclick="login()">Login</button></div>
+<div id="registerForm" class="hidden"><h2>Create your account</h2><input class="field" id="regName" placeholder="Full name"><input class="field" id="regEmail" type="email" placeholder="Email"><input class="field" id="regPassword" type="password" placeholder="Password (6+ characters)"><input class="field" id="regRef" placeholder="Referral code (optional)"><button class="btn green" style="width:100%" onclick="register()">Create Account</button></div><p id="authMsg"></p></div></div>
+
+<div class="modal-bg" id="txModal"><div class="modal"><button class="x" onclick="closeModal('txModal')">×</button><h2 id="txTitle">Request</h2>
+<input class="field" id="txAmount" type="number" min="1" step="0.01" placeholder="Amount (BDT)">
+<select class="field" id="txMethod">
+<option value="">Payment method</option>
+<option>bKash</option><option>Nagad</option><option>Rocket</option><option>Binance ID</option><option>Bank</option>
+</select>
+<input class="field" id="txAccount" placeholder="bKash/Nagad/Rocket number or Binance ID">
+<input class="field" id="txReference" placeholder="Deposit TrxID / reference">
+<p id="txHint" class="muted" style="font-size:13px">Deposit হলে TrxID দিন। Withdraw হলে আপনার payment number/ID দিন।</p>
+<button class="btn blue" style="width:100%" onclick="submitTx()">Submit Request</button><p id="txMsg"></p></div></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+const firebaseConfig = {  apiKey: "AIzaSyAFUC6eAedI7IVTUKT_BYCefjfjRd_PyeE",  authDomain: "real-money-income-bd.firebaseapp.com",  databaseURL: "https://real-money-income-bd-default-rtdb.firebaseio.com",  projectId: "real-money-income-bd",  storageBucket: "real-money-income-bd.firebasestorage.app",  messagingSenderId: "834454988740",  appId: "1:834454988740:web:bada9e5f19d733e121e691"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app);let user=null,token=null,txType="deposit";
+const $=id=>document.getElementById(id),api=async(url,opt={})=>{const h=opt.headers||{};h.Authorization="Bearer "+token;h["Content-Type"]="application/json";const r=await fetch(url,{...opt,headers:h});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Request failed");return d};
+window.openAuth=m=>{$("authModal").style.display="grid";authMode(m)};window.closeModal=id=>$(id).style.display="none";
+window.authMode=m=>{$("loginForm").classList.toggle("hidden",m!=="login");$("registerForm").classList.toggle("hidden",m!=="register");$("authMsg").textContent=""};
+$("loginBtn").onclick=()=>openAuth("login");$("registerBtn").onclick=()=>openAuth("register");$("logoutBtn").onclick=()=>signOut(auth);
+window.login=async()=>{try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);closeModal("authModal")}catch(e){$("authMsg").textContent=e.message}};
+window.register=async()=>{try{const n=$("regName").value.trim(),e=$("regEmail").value.trim(),p=$("regPassword").value,r=new URLSearchParams(location.search).get("ref")||"";if(!n)throw Error("Name is required");const c=await createUserWithEmailAndPassword(auth,e,p);await updateProfile(c.user,{displayName:n});token=await c.user.getIdToken();await api("/api/profile",{method:"POST",body:JSON.stringify({name:n,referralCode:r})});$("authMsg").textContent="Account created";closeModal("authModal")}catch(e){$("authMsg").textContent=e.message}};
+onAuthStateChanged(auth,async u=>{user=u;if(!u){token=null;$("logoutBtn").classList.add("hidden");$("loginBtn").classList.remove("hidden");$("registerBtn").classList.remove("hidden");$("dashboard").style.display="none";return}token=await u.getIdToken();$("logoutBtn").classList.remove("hidden");$("loginBtn").classList.add("hidden");$("registerBtn").classList.add("hidden");$("dashboard").style.display="block";await loadDashboard()});
+async function loadDashboard(){const m=await api("/api/me"),d=m.user||{};$("dashName").textContent=d.name||user.displayName||"User";$("profileName").value=d.name||"";$("profileEmail").textContent=user.email||"";$("profileUid").textContent=user.uid;$("balance").textContent=Number(d.balance||0).toFixed(2);$("walletBalance").textContent=Number(d.balance||0).toFixed(2);$("overviewBalance").textContent="৳ "+Number(d.balance||0).toFixed(2);$("verified").textContent=d.verified?"☑️":"";await loadTasks();await loadTx();const r=await api("/api/referral");$("refCode").textContent=r.code;$("refLink").value=location.origin+location.pathname+"?ref="+r.code}
+async function loadTasks(){const a=await api("/api/tasks");$("taskList").innerHTML=a.length?a.map(t=>`<div class="market-task"><div class="meta"><span class="pill">${esc(t.category||"General")}</span><span class="reward">৳${Number(t.reward||0).toFixed(2)}</span></div><h3 style="margin:2px 0">${esc(t.title)}</h3><div class="muted">${esc(t.description||"Complete this work carefully.")}</div>${t.slots?`<small class="muted">Slots: ${Number(t.claimed||0)} / ${Number(t.slots)}</small>`:""}<button class="btn green" data-id="${esc(t.id)}">Apply / Submit</button></div>`).join(""):"<p class='muted'>No active work available.</p>";$("taskList").classList.add("market-task-grid");$("taskList").querySelectorAll("button").forEach(b=>b.onclick=async()=>{try{await api("/api/tasks/"+encodeURIComponent(b.dataset.id)+"/claim",{method:"POST"});b.disabled=true;b.textContent="Submitted ✓";alert("Work submitted for admin review.")}catch(e){alert(e.message)}})}
+window.switchPanel=p=>{document.querySelectorAll(".dashnav button").forEach(x=>x.classList.toggle("active",x.dataset.p===p));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));$(p).classList.add("active")};
+window.openTx=t=>{txType=t;$("txTitle").textContent=t==="deposit"?"💳 Deposit Request":"💸 Withdraw Request";$("txMethod").style.display="block";$("txReference").style.display=t==="deposit"?"block":"none";$("txAccount").style.display=t==="withdraw"?"block":"none";$("txHint").textContent=t==="deposit"?"Deposit হলে TrxID/reference দিন।":"Withdraw হলে bKash/Nagad/Rocket number বা Binance ID দিন।";$("txModal").style.display="grid";$("txMsg").textContent=""};
+window.submitTx=async()=>{try{const amount=Number($("txAmount").value);const method=$("txMethod").value;const account=$("txAccount").value.trim();const reference=txType==="withdraw"?account:$("txReference").value.trim();if(txType==="withdraw"&&!account)throw Error("আপনার টাকা যে bKash/Nagad/Rocket নম্বর বা Binance ID-তে নেবেন, সেটি দিন");
+if(txType==="withdraw"&&["bKash","Nagad","Rocket"].includes(method)&&!/^01\d{9}$/.test(account))throw Error("bKash/Nagad/Rocket-এর জন্য 11 digit number দিন");await api("/api/transactions",{method:"POST",body:JSON.stringify({type:txType,amount,method,reference})});$("txMsg").textContent="Request submitted";$("txAmount").value="";$("txAccount").value="";$("txReference").value="";closeModal("txModal");await loadTx();await loadDashboard()}catch(e){$("txMsg").textContent=e.message}};
+window.saveProfile=async()=>{try{await api("/api/profile",{method:"POST",body:JSON.stringify({name:$("profileName").value})});await loadDashboard();alert("Profile updated")}catch(e){alert(e.message)}};
+window.copyReferral=async()=>{await navigator.clipboard.writeText($("refLink").value);alert("Referral link copied")};
+document.querySelectorAll(".dashnav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".dashnav button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.p).classList.add("active")});
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+</script></body></html>
